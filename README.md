@@ -1,14 +1,20 @@
-## docker image for [KafkaOffsetMonitor](https://github.com/quantifind/KafkaOffsetMonitor)
+# kafka manager Dockerfile
+[kafka manager](https://github.com/yahoo/kafka-manager) is a tool from Yahoo Inc. for managing [Apache Kafka](http://kafka.apache.org).
 
-Includes [kafka-offset-monitor-graphite](https://github.com/allegro/kafka-offset-monitor-graphite) plugin to publish metrics to graphite.
+## Howto
+### Quick Start
+```
+docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e APPLICATION_SECRET=letmein quay.io/athenahealth/kafka-manager
+```
+(if you don't define ZK_HOSTS, default value has been set to "localhost:2181")
 
-Override config with env.
 
-    ZK_HOSTS=${ZK_HOSTS:-localhost:2181}
-    PORT=${PORT:-8080}
-    REFRESH_SECONDS=${REFRESH_SECONDS:-10}
-    RETAIN_DAYS=${RETAIN_DAYS:-2}
-    GRAPHITE_HOST=${GRAPHITE_HOST:-localhost}
-    GRAPHITE_PORT=${GRAPHITE_PORT:-2003}
-    GRAPHITE_PREFIX=${GRAPHITE_PREFIX:-stats.kafka.offset_monitor}
-    PLUGIN_ARGS=${PLUGIN_ARGS:-graphiteHost=${GRAPHITE_HOST},graphitePort=${GRAPHITE_PORT},graphitePrefix=${GRAPHITE_PREFIX}}
+### Use your own configuration file
+```
+docker run [...] -v /path/to/confdir:/opt -e KM_CONFIG=/opt/my_shiny.conf quay.io/athenahealth/kafka-manager
+```
+
+### Pass arguments to kafka-manager
+```
+docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e APPLICATION_SECRET=letmein -e KM_ARGS=-Djava.net.preferIPv4Stack=true quay.io/athenahealth/kafka-manager 
+```
