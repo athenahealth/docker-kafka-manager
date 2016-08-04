@@ -17,7 +17,7 @@ RUN apk add --update curl git bash unzip && \
   sbt clean dist && \
   unzip -d / target/universal/kafka-manager-${KM_VERSION}.zip && \
   mv /kafka-manager-${KM_VERSION} /kafka-manager && \
-  sed -i -e 's@<appender-ref ref="ASYNCFILE" />@@g' /kafka-manager/conflogback.xml && \
+  sed -i -e 's@<appender-ref ref="ASYNCFILE" />@@g' /kafka-manager/conf/logback.xml && \
   apk del expat pcre git curl unzip && \
   rm -rf /var/cache/apk/* /root/.m2 /root/.sbt /root/.ivy2 /tmp/* /usr/local/sbt
 
