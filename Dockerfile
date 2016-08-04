@@ -1,4 +1,4 @@
-FROM java:jre-alpine
+FROM java:jdk-alpine
 
 MAINTAINER Stas Alekseev
 
